@@ -18,11 +18,23 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
+  max-width: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 16px 20px;
   background-color: var(--background-primary);
   color: var(--text-normal);
   font-family: var(--font-interface, sans-serif);
+  box-sizing: border-box;
+}
+
+.srf-view-content-slot {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
 }
 
@@ -248,6 +260,7 @@
   align-items: center;
   width: 100%;
   max-width: 650px;
+  min-width: 0;
   margin: 0 auto;
   box-sizing: border-box;
 }
@@ -310,6 +323,8 @@
 /* 3D Card Scene */
 .srf-card-scene {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   perspective: 1200px;
   margin: 0 auto;
   box-sizing: border-box;
@@ -318,7 +333,10 @@
 .srf-card-flipper {
   display: grid;
   grid-template-areas: "card";
+  grid-template-columns: minmax(0, 1fr);
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   transform-style: preserve-3d;
   transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
   box-sizing: border-box;
@@ -354,6 +372,11 @@
   cursor: pointer;
   box-sizing: border-box;
   user-select: text;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .srf-card-back {
@@ -371,21 +394,40 @@
   border-bottom: 1px solid var(--background-modifier-border);
   padding-bottom: 10px;
   user-select: none;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .srf-card-content {
   color: var(--text-normal);
   line-height: 1.6;
   flex: 1;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  word-wrap: break-word;
 }
 
 .srf-card-front .srf-card-content {
-  font-size: 1.45em;
+  font-size: 1.35em;
   text-align: center;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 10px 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: min(60vh, 500px);
 }
 
 .srf-card-back .srf-card-content {
@@ -396,6 +438,61 @@
   overflow-x: auto;
   scrollbar-width: thin;
   padding-right: 6px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* Markdown rendered child elements inside cards & drills */
+.srf-card-content *,
+.srf-drill-question *,
+.srf-drill-answer * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.srf-card-content pre,
+.srf-drill-answer pre {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  background: var(--background-secondary);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.srf-card-content code,
+.srf-drill-answer code {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  font-size: 0.9em;
+}
+
+.srf-card-content table,
+.srf-drill-answer table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+.srf-card-content img,
+.srf-drill-question img,
+.srf-drill-answer img {
+  max-width: 100% !important;
+  height: auto !important;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.srf-card-content .math,
+.srf-card-content mjx-container,
+.srf-drill-answer .math {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  overflow-y: hidden;
 }
 
 /* Rating Buttons */
@@ -897,4 +994,76 @@
 .srf-finish-screen h2 {
   color: var(--interactive-accent);
   margin-bottom: 8px;
+}
+
+/* ==========================================================================
+   MOBILE & RESPONSIVE STYLES
+   ========================================================================== */
+@media (max-width: 768px) {
+  .srf-main-container {
+    padding: 12px 10px;
+    padding-top: max(12px, env(safe-area-inset-top));
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+
+  .srf-nav-bar {
+    padding: 8px 10px;
+    margin-bottom: 12px;
+  }
+
+  .srf-switch-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .srf-card-face {
+    padding: 20px 16px;
+    border-radius: 12px;
+    min-height: 180px;
+  }
+
+  .srf-card-context {
+    font-size: 0.78em;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+  }
+
+  .srf-card-front .srf-card-content {
+    font-size: 1.15em;
+    padding: 6px 0;
+  }
+
+  .srf-card-back .srf-card-content {
+    font-size: 1.05em;
+    margin-bottom: 16px;
+  }
+
+  .srf-buttons-grid {
+    gap: 6px;
+    margin-top: 14px;
+  }
+
+  .srf-rating-btn {
+    padding: 10px 4px;
+    font-size: 0.82em;
+  }
+
+  .srf-due-text {
+    font-size: 0.7em;
+  }
+
+  .srf-drill-card {
+    padding: 16px 12px;
+    border-radius: 8px;
+  }
+
+  .srf-option-btn {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}
+
+.is-phone .srf-main-container,
+.is-mobile .srf-main-container {
+  padding-top: max(12px, env(safe-area-inset-top));
 }
