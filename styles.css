@@ -43,22 +43,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--background-modifier-border);
-  background-color: var(--background-secondary);
+  padding: 8px 16px;
+  border-bottom: 1px solid color-mix(in srgb, var(--background-modifier-border) 40%, transparent);
+  background-color: color-mix(in srgb, var(--background-secondary) 30%, var(--background-primary));
   box-sizing: border-box;
   width: 100%;
   margin-bottom: 16px;
-  border-radius: 8px;
+  border-radius: 12px;
 }
 
 .srf-mode-switch {
   display: flex;
-  background: var(--background-primary);
-  padding: 3px;
-  border-radius: 8px;
-  border: 1px solid var(--background-modifier-border);
-  gap: 4px;
+  background: color-mix(in srgb, var(--background-modifier-hover) 35%, transparent);
+  padding: 2px 3px;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--background-modifier-border) 25%, transparent);
+  gap: 2px;
 }
 
 .srf-switch-btn {
@@ -67,13 +67,13 @@
   padding: 6px 18px;
   font-size: 0.85rem;
   font-weight: 600;
-  border-radius: 6px;
+  border-radius: 9999px;
   cursor: pointer;
   color: var(--text-muted);
   display: flex;
   align-items: center;
   gap: 6px;
-  transition: all 0.2s ease;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   user-select: none;
 }
 
@@ -85,7 +85,7 @@
 .srf-switch-btn.active {
   background: var(--interactive-accent);
   color: var(--text-on-accent);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
 }
 
 .srf-switch-btn .srf-btn-icon {

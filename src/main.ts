@@ -4,6 +4,7 @@ import { SpacedRepetitionMainView, VIEW_TYPE_SPACED_REPETITION } from './views/M
 import { createFSRSDecoration, createBadgeDOM, createDrillBadgeDOM } from './decorations/fsrsDecoration';
 import { SpacedRepetitionSettingTab } from './settings';
 import { DrillTelemetryRecord } from './cache/drillTypes';
+import { generateNewFSRSString } from './fsrs/dataMap';
 
 export interface FSRSPluginSettings {
   cache: CacheData;
@@ -44,6 +45,18 @@ const DEFAULT_SETTINGS: FSRSPluginSettings = {
 export default class SpacedRepetitionPlugin extends Plugin {
   settings: FSRSPluginSettings = DEFAULT_SETTINGS;
   cacheManager!: CacheManager;
+
+  get api() {
+    return {
+      getCacheData: () => this.cacheManager?.getCacheData(),
+      processFile: (file: TFile) => this.cacheManager?.processFile(file),
+      onUpdate: (cb: () => void) => {
+        this.cacheManager?.on('update', cb);
+        return () => this.cacheManager?.off('update', cb);
+      },
+      generateNewFSRSString: () => generateNewFSRSString(),
+    };
+  }
 
   async onload() {
     console.log('Loading Spaced Repetition (FSRS) plugin');
